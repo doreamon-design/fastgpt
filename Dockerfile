@@ -1,7 +1,7 @@
 # Install dependencies only when needed
 FROM whatwewant/builder-node:v20-1 AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat && npm install -g pnpm
+RUN npm install -g pnpm
 WORKDIR /app
 
 ARG name
@@ -35,21 +35,6 @@ RUN npm install -g pnpm
 RUN pnpm --filter=$name run build
 
 FROM whatwewant/node:v20-2 AS runner
-
-LABEL MAINTAINER="Zero<tobewhatwewant@outlook.com>"
-
-# USER root
-
-RUN apk add --no-cache \
-  curl \
-  git \
-  vim \
-  tzdata \
-  bash
-
-RUN curl -o- https://raw.githubusercontent.com/zcorky/zmicro/master/install | CI=true bash
-
-ENV TZ=Asia/Shanghai
 
 WORKDIR /app
 
