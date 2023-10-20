@@ -12,9 +12,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // 根据 id 获取用户信息
     const user = await MongoUser.findById(userId);
-
+    console.log('user:', user);
     if (!user) {
-      throw new Error('账号异常');
+      throw new Error(`账号异常(userId: ${userId})`);
     }
 
     jsonRes(res, {

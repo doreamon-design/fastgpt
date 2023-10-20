@@ -48,9 +48,9 @@ const defaultSystemEnv: SystemEnvType = {
 };
 const defaultFeConfigs: FeConfigsType = {
   show_emptyChat: true,
-  show_contact: true,
-  show_git: true,
-  show_doc: true,
+  show_contact: false,
+  show_git: false,
+  show_doc: false,
   systemTitle: 'FastGPT',
   authorText: 'Made by FastGPT Team.',
   limit: {

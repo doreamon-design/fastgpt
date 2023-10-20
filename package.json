@@ -1,10 +1,13 @@
 {
   "name": "fastgpt",
-  "version": "4.0",
+  "version": "4.5-1.2.14",
   "private": true,
   "scripts": {
     "prepare": "husky install",
     "format": "prettier --config \"./.prettierrc.js\" --write \"./**/src/**/*.{ts,tsx,scss}\""
+  },
+  "lint-staged": {
+    "./**/**/*.{ts,tsx,scss}": "npm run format"
   },
   "devDependencies": {
     "husky": "^8.0.3",
@@ -13,9 +16,6 @@
     "i18next": "^23.2.11",
     "react-i18next": "^13.0.2",
     "next-i18next": "^14.0.0"
-  },
-  "lint-staged": {
-    "./**/**/*.{ts,tsx,scss}": "npm run format"
   },
   "engines": {
     "node": ">=18.0.0"
