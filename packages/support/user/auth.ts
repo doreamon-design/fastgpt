@@ -7,7 +7,7 @@ import { MongoUser } from './schema';
 import type { UserModelSchema } from './type.d';
 import { ERROR_ENUM } from '@fastgpt/common/constant/errorCode';
 
-import * as connect from '@znode/connect';
+import connect from '@znode/connect';
 import doreamon from '@zodash/doreamon';
 
 export enum AuthUserTypeEnum {
@@ -128,10 +128,14 @@ export const authUser = async ({
   } else if (authToken && (cookie || token)) {
     let tokenX = token;
     // user token(from fastgpt web)
-    const xConnectToken = (req.headers || {})['x-connect-token'];
+    const xConnectToken = (req.headers || {})['x-connect-token'] as any as string;
     console.log('auth connect token:', xConnectToken);
     if (xConnectToken) {
-      const connectUser = connect.decodeUser(process.env.SECRET_KEY, xConnectToken);
+      if (!process.env.SECRET_KEY) {
+        return Promise.reject(new Error('process.env.SECRET_KEY is required'));
+      }
+
+      const connectUser = connect.decodeUser(process.env.SECRET_KEY!, xConnectToken!);
       console.log('auth connect user:', connectUser);
 
       let authUser = await MongoUser.findOne({
