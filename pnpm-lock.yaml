@@ -35,6 +35,12 @@ importers:
       mongoose:
         specifier: ^7.0.2
         version: 7.0.2
+      next:
+        specifier: 13.5.2
+        version: 13.5.2(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0)(sass@1.58.3)
+      nextjs-cors:
+        specifier: ^2.1.2
+        version: 2.1.2(next@13.5.2)
       winston:
         specifier: ^3.10.0
         version: 3.10.0
@@ -58,8 +64,8 @@ importers:
         specifier: ^0.1.13
         version: 0.1.13
       openai:
-        specifier: ^4.11.1
-        version: 4.11.1(encoding@0.1.13)
+        specifier: ^4.12.1
+        version: 4.12.1(encoding@0.1.13)
       tunnel:
         specifier: ^0.0.6
         version: 0.0.6
@@ -82,6 +88,9 @@ importers:
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
+      next:
+        specifier: 13.5.2
+        version: 13.5.2(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0)(sass@1.58.3)
     devDependencies:
       '@types/cookie':
         specifier: ^0.5.2
@@ -209,9 +218,6 @@ importers:
       next-i18next:
         specifier: ^14.0.0
         version: 14.0.3(i18next@23.5.1)(next@13.5.2)(react-i18next@13.2.2)(react@18.2.0)
-      nextjs-cors:
-        specifier: ^2.1.2
-        version: 2.1.2(next@13.5.2)
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
@@ -272,9 +278,6 @@ importers:
       timezones-list:
         specifier: ^3.0.2
         version: 3.0.2
-      tools:
-        specifier: link:@fastgpt/support/user/tools
-        version: link:@fastgpt/support/user/tools
       zustand:
         specifier: ^4.3.5
         version: 4.3.5(immer@9.0.19)(react@18.2.0)
@@ -303,6 +306,9 @@ importers:
       '@types/multer':
         specifier: ^1.4.7
         version: 1.4.7
+      '@types/node':
+        specifier: ^20.8.5
+        version: 20.8.5
       '@types/papaparse':
         specifier: ^5.3.7
         version: 5.3.7
@@ -8089,8 +8095,8 @@ packages:
       mimic-fn: 4.0.0
     dev: true
 
-  /openai@4.11.1(encoding@0.1.13):
-    resolution: {integrity: sha512-GU0HQWbejXuVAQlDjxIE8pohqnjptFDIm32aPlNT1H9ucMz1VJJD0DaTJRQsagNaJ97awWjjVLEG7zCM6sm4SA==}
+  /openai@4.12.1(encoding@0.1.13):
+    resolution: {integrity: sha512-EAoUwm4dtiWvFwBhOCK/VfF8sj1ZU8+aAIJnfT4NyeTfrt1DM/6Gdd6fOZWTjBYryTAqu9Vpb5+9Wu6JMtm/gA==}
     hasBin: true
     dependencies:
       '@types/node': 18.18.5
