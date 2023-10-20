@@ -12,11 +12,12 @@ COPY ./packages ./packages
 COPY ./projects/$name/package.json ./projects/$name/package.json
 
 RUN \
-  [ -f pnpm-lock.yaml ] && pnpm install || \
+  [ -f pnpm-lock.yaml ] && pnpm install ||
   (echo "Lockfile not found." && exit 1)
 
 # Rebuild the source code only when needed
 FROM node:current-alpine AS builder
+
 WORKDIR /app
 
 ARG name
@@ -34,6 +35,22 @@ RUN npm install -g pnpm
 RUN pnpm --filter=$name run build
 
 FROM node:current-alpine AS runner
+
+LABEL MAINTAINER="Zero<tobewhatwewant@outlook.com>"
+
+# USER root
+
+RUN apk add --no-cache \
+  curl \
+  git \
+  vim \
+  tzdata \
+  bash
+
+RUN curl -o- https://raw.githubusercontent.com/zcorky/zmicro/master/install | CI=true bash
+
+ENV TZ=Asia/Shanghai
+
 WORKDIR /app
 
 ARG name
@@ -43,9 +60,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 RUN sed -i 's/https/http/' /etc/apk/repositories
-RUN apk add curl \
-  && apk add ca-certificates \
-  && update-ca-certificates
+RUN apk add curl && apk add ca-certificates && update-ca-certificates
 
 # copy running files
 COPY --from=builder /app/projects/$name/public ./projects/$name/public
@@ -53,15 +68,13 @@ COPY --from=builder /app/projects/$name/next.config.js ./projects/$name/next.con
 COPY --from=builder --chown=nextjs:nodejs /app/projects/$name/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/projects/$name/.next/static ./projects/$name/.next/static
 # copy package.json to version file
-COPY --from=builder /app/projects/$name/package.json ./package.json 
+COPY --from=builder /app/projects/$name/package.json ./package.json
 
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV PORT=3000
 
 EXPOSE 3000
-
-USER nextjs
 
 ENV serverPath=./projects/$name/server.js
 
