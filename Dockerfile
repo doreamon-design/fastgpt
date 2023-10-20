@@ -56,6 +56,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/projects/$name/.next/static ./pro
 # copy package.json to version file
 COPY --from=builder /app/projects/$name/package.json ./package.json
 
+COPY ./config/config.json /app/data/config.json
+
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV PORT=3000

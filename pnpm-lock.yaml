@@ -82,6 +82,9 @@ importers:
       '@znode/connect':
         specifier: ^1.3.1
         version: 1.3.1
+      '@zodash/doreamon':
+        specifier: ^1.2.9
+        version: 1.2.9
       axios:
         specifier: ^1.5.1
         version: 1.5.1
