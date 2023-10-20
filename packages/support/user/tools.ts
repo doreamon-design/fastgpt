@@ -3,7 +3,7 @@ import { ERROR_ENUM } from '@fastgpt/common/constant/errorCode';
 
 /* 生成 token */
 export const generateToken = (userId: string) => {
-  const key = process.env.TOKEN_KEY as string;
+  const key = process.env.SECRET_KEY as string;
   const token = jwt.sign(
     {
       userId,
@@ -16,8 +16,8 @@ export const generateToken = (userId: string) => {
 // auth token
 export const authJWT = (token: string) =>
   new Promise<string>((resolve, reject) => {
-    const key = process.env.TOKEN_KEY as string;
-
+    const key = process.env.SECRET_KEY as string;
+    console.log('xxxx:', key, token);
     jwt.verify(token, key, function (err, decoded: any) {
       if (err || !decoded?.userId) {
         reject(ERROR_ENUM.unAuthorization);

@@ -46,7 +46,16 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['mongoose'],
     outputFileTracingRoot: path.join(__dirname, '../../')
-  }
+  },
+  redirects: () => {
+    return [
+      {
+        source: '/',
+        destination: '/app/list',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

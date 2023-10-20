@@ -7,6 +7,10 @@ import { MongoUser } from './schema';
 import type { UserModelSchema } from './type.d';
 import { ERROR_ENUM } from '@fastgpt/common/constant/errorCode';
 
+import * as connect from '@znode/connect';
+import doreamon from '@zodash/doreamon';
+import { generateToken } from './tools';
+
 export enum AuthUserTypeEnum {
   token = 'token',
   root = 'root',
@@ -123,8 +127,34 @@ export const authUser = async ({
     uid = res.userId;
     authType = AuthUserTypeEnum.outLink;
   } else if (authToken && (cookie || token)) {
+    let tokenX = token;
     // user token(from fastgpt web)
-    uid = await authCookieToken(cookie, token);
+    const xConnectToken = (req.headers || {})['x-connect-token'];
+    console.log('auth connect token:', xConnectToken);
+    if (xConnectToken) {
+      const connectUser = connect.decodeUser(process.env.SECRET_KEY, xConnectToken);
+      console.log('auth connect user:', connectUser);
+
+      let authUser = await MongoUser.findOne({
+        username: connectUser.email
+      });
+      if (!authUser) {
+        authUser = await MongoUser.create({
+          username: connectUser.email,
+          password: doreamon.random.secret(),
+          avatar: connectUser.avatar
+        });
+      }
+
+      console.log('database user:', authUser);
+
+      // tokenX = generateToken(authUser._id);
+      uid = authUser._id;
+    } else {
+      uid = await authCookieToken(cookie, tokenX);
+      console.log('uid:', uid);
+    }
+
     authType = AuthUserTypeEnum.token;
   } else if (authRoot && rootkey) {
     // root user

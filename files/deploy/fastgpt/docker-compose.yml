@@ -51,7 +51,7 @@ services:
       - OPENAI_BASE_URL=https://api.openai.com/v1
       - CHAT_API_KEY=sk-xxxx
       - DB_MAX_LINK=5 # database max link
-      - TOKEN_KEY=any
+      - SECRET_KEY=any
       - ROOT_KEY=root_key
       - FILE_TOKEN_KEY=filetoken
       # mongo 配置，不需要改. 如果连不上，可能需要去掉 ?authSource=admin
@@ -107,7 +107,7 @@ networks:
 #       - CHAT_API_KEY=sk-xxxx
 #       - DB_MAX_LINK=5 # database max link
 #       # token加密凭证（随便填，作为登录凭证）
-#       - TOKEN_KEY=any
+#       - SECRET_KEY=any
 #       # root key, 最高权限，可以内部接口互相调用
 #       - ROOT_KEY=root_key
 #       # mongo 配置，不需要改
