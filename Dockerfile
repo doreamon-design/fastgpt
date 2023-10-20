@@ -1,5 +1,5 @@
 # Install dependencies only when needed
-FROM whatwewant/node:v20-2 AS deps
+FROM node:current-alpine AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat && npm install -g pnpm
 WORKDIR /app
@@ -16,7 +16,7 @@ COPY ./projects/$name/package.json ./projects/$name/package.json
 RUN ls -al && pnpm i
 
 # Rebuild the source code only when needed
-FROM whatwewant/node:v20-2 AS builder
+FROM node:current-alpine AS builder
 
 WORKDIR /app
 
@@ -55,9 +55,9 @@ WORKDIR /app
 
 ARG name
 
-# create user and use it
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# # create user and use it
+# RUN addgroup --system --gid 1001 nodejs
+# RUN adduser --system --uid 1001 nextjs
 
 RUN sed -i 's/https/http/' /etc/apk/repositories
 RUN apk add curl && apk add ca-certificates && update-ca-certificates
