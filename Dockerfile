@@ -1,5 +1,5 @@
 # Install dependencies only when needed
-FROM node:current-alpine AS deps
+FROM whatwewant/builder-node:v20-1 AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat && npm install -g pnpm
 WORKDIR /app
@@ -16,7 +16,7 @@ COPY ./projects/$name/package.json ./projects/$name/package.json
 RUN ls -al && pnpm i
 
 # Rebuild the source code only when needed
-FROM node:current-alpine AS builder
+FROM whatwewant/builder-node:v20-1 AS builder
 
 WORKDIR /app
 
