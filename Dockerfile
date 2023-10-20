@@ -7,13 +7,13 @@ WORKDIR /app
 ARG name
 
 # copy packages and one project
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY package.json .
+COPY pnpm-lock.yaml .
+COPY pnpm-workspace.yaml .
 COPY ./packages ./packages
 COPY ./projects/$name/package.json ./projects/$name/package.json
 
-RUN \
-  [ -f pnpm-lock.yaml ] && pnpm install ||
-  (echo "Lockfile not found." && exit 1)
+RUN ls -al && pnpm i
 
 # Rebuild the source code only when needed
 FROM node:current-alpine AS builder
