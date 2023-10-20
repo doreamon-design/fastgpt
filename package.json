@@ -1,6 +1,6 @@
 {
   "name": "fastgpt",
-  "version": "4.5-1.2.12",
+  "version": "4.5-1.2.13",
   "private": true,
   "scripts": {
     "prepare": "husky install",

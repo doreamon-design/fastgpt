@@ -7,7 +7,7 @@ import { MongoUser } from './schema';
 import type { UserModelSchema } from './type.d';
 import { ERROR_ENUM } from '@fastgpt/common/constant/errorCode';
 
-import connect from '@znode/connect';
+import * as connect from '@znode/connect';
 import doreamon from '@zodash/doreamon';
 
 export enum AuthUserTypeEnum {
