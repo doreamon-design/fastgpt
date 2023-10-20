@@ -32,7 +32,6 @@ jobs:
         uses: zmicro-design/action-docker-build@v1
         with:
           build-args: |
-            VERSION=${{ steps.meta.outputs.version }}
             name=app
           context: .
           push: ${{ github.event_name != 'pull_request' }}
